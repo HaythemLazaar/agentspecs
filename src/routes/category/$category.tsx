@@ -17,8 +17,7 @@ import {
   InputGroupInput,
   InputGroupText,
 } from '@/components/ui/input-group'
-import type { Skill } from '@/data/skills'
-import { getAllSkills } from '@/data/skills'
+import { getSkillsByCategory } from '@/data/skills'
 import { cn } from '@/lib/utils'
 
 type SkillItem = {
@@ -46,7 +45,9 @@ function buildPreview(content: string) {
   return `${cleaned.slice(0, 180).trim()}…`
 }
 
-function skillToItem(skill: Skill): SkillItem {
+function skillToItem(
+  skill: ReturnType<typeof getSkillsByCategory>[0],
+): SkillItem {
   return {
     id: skill.id,
     title: skill.title,
@@ -57,45 +58,55 @@ function skillToItem(skill: Skill): SkillItem {
   }
 }
 
-export const Route = createFileRoute('/')({
-  loader: async () => {
-    const skills = getAllSkills()
-    return { skills: skills.map(skillToItem) }
+export const Route = createFileRoute('/category/$category')({
+  loader: async ({ params }) => {
+    const skills = getSkillsByCategory(params.category)
+    return {
+      category: params.category,
+      skills: skills.map(skillToItem),
+    }
   },
-  head: () => ({
-    meta: [
-      {
-        title: 'AgentSpecs - Power up your coding agents',
-      },
-      {
-        name: 'description',
-        content:
-          'Browse vetted building blocks for reliable AI agents. Search for a specific pattern, then install or copy the exact spec you need.',
-      },
-      {
-        property: 'og:title',
-        content: 'AgentSpecs - Power up your coding agents',
-      },
-      {
-        property: 'og:description',
-        content:
-          'Browse vetted building blocks for reliable AI agents. Search for a specific pattern, then install or copy the exact spec you need.',
-      },
-      {
-        property: 'og:type',
-        content: 'website',
-      },
-      {
-        name: 'twitter:card',
-        content: 'summary',
-      },
-    ],
-  }),
-  component: Home,
+  head: ({ loaderData }) => {
+    const { category, skills } = loaderData
+    const categoryTitle = category
+      .split('-')
+      .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ')
+    const description = `Browse ${skills.length} ${categoryTitle.toLowerCase()} skill${skills.length !== 1 ? 's' : ''} for building reliable AI agents.`
+
+    return {
+      meta: [
+        {
+          title: `${categoryTitle} Skills - AgentSpecs`,
+        },
+        {
+          name: 'description',
+          content: description,
+        },
+        {
+          property: 'og:title',
+          content: `${categoryTitle} Skills - AgentSpecs`,
+        },
+        {
+          property: 'og:description',
+          content: description,
+        },
+        {
+          property: 'og:type',
+          content: 'website',
+        },
+        {
+          name: 'twitter:card',
+          content: 'summary',
+        },
+      ],
+    }
+  },
+  component: CategoryPage,
 })
 
-function Home() {
-  const { skills } = Route.useLoaderData()
+function CategoryPage() {
+  const { category, skills } = Route.useLoaderData()
   const [query, setQuery] = useState('')
   const normalizedQuery = query.trim().toLowerCase()
 
@@ -107,17 +118,27 @@ function Home() {
       )
     : skills
 
+  const categoryTitle = category
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ')
+
+  function copyToClipboard(value: string) {
+    if (!navigator?.clipboard?.writeText) return
+    void navigator.clipboard.writeText(value)
+  }
+
   return (
     <main className="min-h-dvh bg-background text-foreground">
       <section className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 py-10 sm:px-6 lg:px-10">
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <h1 className="text-balance text-3xl font-semibold sm:text-4xl">
-              Power up your coding agents
+              {categoryTitle} Skills
             </h1>
             <p className="text-pretty text-sm text-muted-foreground sm:text-base">
-              Browse vetted building blocks for reliable AI agents. Search for a
-              specific pattern, then install or copy the exact spec you need.
+              Browse {skills.length} {categoryTitle.toLowerCase()} skill
+              {skills.length !== 1 ? 's' : ''} for building reliable AI agents.
             </p>
           </div>
           <div className="w-full max-w-2xl">
@@ -128,7 +149,7 @@ function Home() {
                 </InputGroupText>
               </InputGroupAddon>
               <InputGroupInput
-                placeholder="Search by title, category, or content"
+                placeholder="Search by title or content"
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 aria-label="Search skills"
@@ -139,20 +160,7 @@ function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
           {filteredSkills.map((skill) => (
-            <Card
-              key={skill.id}
-              className={cn(
-                'group/skill relative',
-                // 'before:absolute before:top-0 before:left-0 before:size-2 before:border-l before:border-t before:border-neutral-500',
-                // 'after:absolute after:top-0 after:right-0 after:size-2 after:border-r after:border-t after:border-neutral-500',
-              )}
-            >
-              {/* <div
-                className={cn(
-                  'before:absolute before:bottom-0 before:left-0 before:size-2 before:border-l before:border-b before:border-neutral-500',
-                  'after:absolute after:bottom-0 after:right-0 after:size-2 after:border-r after:border-b after:border-neutral-500',
-                )}
-              /> */}
+            <Card key={skill.id} className={cn('group/skill relative')}>
               <CardHeader className="gap-0">
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex flex-col gap-1">
@@ -178,10 +186,9 @@ function Home() {
                         size="icon-xs"
                         variant="ghost"
                         aria-label={`Install ${skill.title}`}
-                        onClick={(e) => {
-                          e.stopPropagation()
+                        onClick={() =>
                           copyToClipboard(`agentspecs install ${skill.id}`)
-                        }}
+                        }
                       >
                         <Download />
                       </Button>
@@ -189,10 +196,7 @@ function Home() {
                         size="icon-xs"
                         variant="ghost"
                         aria-label={`Copy ${skill.title}`}
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          copyToClipboard(skill.raw)
-                        }}
+                        onClick={() => copyToClipboard(skill.raw)}
                       >
                         <Copy />
                       </Button>
@@ -201,21 +205,12 @@ function Home() {
                 </div>
               </CardHeader>
               <CardContent className="flex-1">
-                <Link
-                  to="/skills/$skillId"
-                  params={{ skillId: skill.id }}
-                  className="block"
-                >
-                  <div className="size-full bg-neutral-50 p-1 cursor-pointer hover:bg-neutral-100 transition-colors">
-                    <p className="text-pretty text-[10px] font-mono text-muted-foreground">
-                      {skill.preview}
-                    </p>
-                  </div>
-                </Link>
+                <div className="size-full bg-neutral-50 p-1">
+                  <p className="text-pretty text-[10px] font-mono text-muted-foreground">
+                    {skill.preview}
+                  </p>
+                </div>
               </CardContent>
-              {/* <CardFooter className="text-xs text-muted-foreground">
-                <span className="tabular-nums">{skill.id}</span>
-              </CardFooter> */}
             </Card>
           ))}
         </div>
@@ -229,9 +224,4 @@ function Home() {
       </section>
     </main>
   )
-}
-
-function copyToClipboard(value: string) {
-  if (!navigator?.clipboard?.writeText) return
-  void navigator.clipboard.writeText(value)
 }
