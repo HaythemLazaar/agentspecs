@@ -73,7 +73,7 @@ function SkillPage() {
       </Link>
       <h1 className="text-4xl font-bold tracking-tight mt-4">{skill.title}</h1>
 
-      <Card className="max-w-2xl bg-neutral-50 rounded-lg">
+      <Card className="max-w-2xl shadow-xs rounded-lg">
         <CardContent>
           <div className="prose prose-sm max-w-none">
             <pre className="whitespace-pre-wrap font-mono text-sm text-foreground">

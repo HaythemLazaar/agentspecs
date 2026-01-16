@@ -69,7 +69,7 @@ export function FileCard({ skill }: { skill: Skill }) {
           params={{ category: skill.category, skillId: skill.id }}
           className="block size-full"
         >
-          <div className="size-full bg-neutral-50 p-1 cursor-pointer hover:bg-neutral-100 transition-colors">
+          <div className="size-full bg-muted p-1 rounded-md cursor-pointer hover:bg-muted/80 transition-colors">
             <p className="text-pretty text-[10px] font-mono text-muted-foreground">
               {preview}
             </p>
