@@ -3,6 +3,7 @@ import { Search } from 'lucide-react'
 import { useState } from 'react'
 
 import { FileCard } from '@/components/file-card'
+import { NotFound } from '@/components/not-found'
 import {
   InputGroup,
   InputGroupAddon,
@@ -59,6 +60,7 @@ export const Route = createFileRoute('/_docs/$category/')({
     }
   },
   component: CategoryPage,
+  notFoundComponent: NotFound,
 })
 
 function CategoryPage() {

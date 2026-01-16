@@ -1,7 +1,8 @@
 import { createFileRoute, Link, notFound } from '@tanstack/react-router'
 
+import { NotFound } from '@/components/not-found'
 import { Card, CardContent } from '@/components/ui/card'
-import { getSkillById } from '@/data/skills'
+import { getSkillById, Skill } from '@/data/skills'
 import { ArrowLeft } from 'lucide-react'
 
 export const Route = createFileRoute('/_docs/$category/$skillId')({
@@ -13,7 +14,24 @@ export const Route = createFileRoute('/_docs/$category/$skillId')({
     return { skill }
   },
   head: ({ loaderData }) => {
-    const { skill } = loaderData
+    const skill = loaderData?.skill as Skill | undefined
+    if (!skill) {
+      return {
+        meta: [
+          {
+            title: 'Skill not found - AgentSpecs',
+          },
+          {
+            name: 'description',
+            content: 'The skill you are looking for does not exist.',
+          },
+          {
+            property: 'og:title',
+            content: 'Skill not found - AgentSpecs',
+          },
+        ],
+      }
+    }
     const description =
       skill.content.length > 160
         ? `${skill.content.slice(0, 160).trim()}…`
@@ -56,10 +74,11 @@ export const Route = createFileRoute('/_docs/$category/$skillId')({
     }
   },
   component: SkillPage,
+  notFoundComponent: NotFound,
 })
 
 function SkillPage() {
-  const { skill } = Route.useLoaderData()
+  const { skill } = Route.useLoaderData() as { skill: Skill }
   const categoryTitle = skill.category
     .split('-')
     .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))

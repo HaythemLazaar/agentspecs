@@ -12,15 +12,6 @@ import {
 import type { Skill } from '@/data/skills'
 import { getAllSkills } from '@/data/skills'
 
-type SkillItem = {
-  id: string
-  title: string
-  when: string
-  category: string
-  preview: string
-  raw: string
-}
-
 export const Route = createFileRoute('/')({
   loader: async () => {
     return { skills: getAllSkills() }

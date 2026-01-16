@@ -4,10 +4,12 @@ import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 
 import Header from '../components/header'
 
+import { NotFound } from '@/components/not-found'
 import { ThemeProvider } from '@/components/theme-provider'
 import appCss from '../styles.css?url'
 
 export const Route = createRootRoute({
+  notFoundComponent: NotFound,
   head: () => ({
     meta: [
       {

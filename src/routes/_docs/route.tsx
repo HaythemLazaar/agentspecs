@@ -1,8 +1,10 @@
 import { DocsSidebar } from '@/components/docs-sidebar'
+import { NotFound } from '@/components/not-found'
 import { createFileRoute, Outlet } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_docs')({
   component: DocsLayout,
+  notFoundComponent: NotFound,
 })
 
 function DocsLayout() {
