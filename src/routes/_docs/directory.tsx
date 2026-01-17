@@ -92,7 +92,11 @@ function AuthorCard({
           </span>
         </Link>
       </div>
-      <Link to="/$author" params={{ author: author.name }} className="ml-auto">
+      <Link
+        to="/$author/skills"
+        params={{ author: author.name }}
+        className="ml-auto"
+      >
         <Button
           variant="outline"
           className="ml-auto group/button overflow-hidden"

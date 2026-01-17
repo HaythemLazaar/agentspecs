@@ -1,11 +1,10 @@
-import { createFileRoute, Link, notFound } from '@tanstack/react-router'
+import { createFileRoute, notFound } from '@tanstack/react-router'
 
 import { NotFound } from '@/components/not-found'
 import { SkillContent } from '@/components/skill-content'
 import { SkillDetails } from '@/components/skill-details'
-import { SkillReadme } from '@/components/skill-readme'
+import { SkillDocs } from '@/components/skill-docs'
 import { getSkillBySlug, Skill } from '@/data'
-import { IconArrowLeft } from '@tabler/icons-react'
 
 export const Route = createFileRoute('/_docs/$category/$slug')({
   loader: async ({ params }) => {
@@ -86,21 +85,12 @@ function SkillPage() {
   const { skill } = Route.useLoaderData() as {
     skill: Skill
   }
-  const categoryTitle = skill.category
-    .split('-')
-    .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ')
 
   return (
     <div className="py-4 sm:py-6 flex flex-col max-sm:gap-6 gap-10">
-      <Link to="/$category" params={{ category: skill.category }}>
-        <span className="text-xs font-medium flex items-center gap-2 rounded-md w-fit capitalize hover:opacity-80 transition-all">
-          <IconArrowLeft className="size-3.5" /> {categoryTitle}
-        </span>
-      </Link>
       <SkillDetails skill={skill} />
       <SkillContent content={skill.content} />
-      <SkillReadme skill={skill} />
+      <SkillDocs skill={skill} />
     </div>
   )
 }

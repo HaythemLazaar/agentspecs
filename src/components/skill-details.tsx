@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Skill } from '@/data/skill'
 import { Link } from '@tanstack/react-router'
-import { ArrowUpRight } from 'lucide-react'
+import { LinkChip } from './ui/link-chip'
 
 export function SkillDetails({ skill }: { skill: Skill }) {
   return (
@@ -24,19 +24,8 @@ export function SkillDetails({ skill }: { skill: Skill }) {
       </div>
 
       <div className="flex items-center gap-2">
-        <Link to={skill.githubUrl} target="_blank">
-          <span className="text-xs text-foreground px-2 py-0.5 w-fit rounded-full bg-muted flex items-center gap-1 group/chip">
-            GitHub
-            <ArrowUpRight className="size-3 group-hover/chip:rotate-45 transition-all" />
-          </span>
-        </Link>
-
-        <Link to={skill.rawMarkdownUrl} target="_blank">
-          <span className="text-xs text-foreground px-2 py-0.5 w-fit rounded-full bg-muted flex items-center gap-1 group/chip">
-            Markdown
-            <ArrowUpRight className="size-3 group-hover/chip:rotate-45 transition-all" />
-          </span>
-        </Link>
+        <LinkChip link={skill.githubUrl} label="GitHub" />
+        <LinkChip link={skill.rawMarkdownUrl} label="Markdown" />
       </div>
     </div>
   )
