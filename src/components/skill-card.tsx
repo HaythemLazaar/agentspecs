@@ -1,22 +1,31 @@
 import { Skill } from '@/data'
-import { buildPreview } from '@/lib/utils'
+import { buildPreview, cn } from '@/lib/utils'
 import { Link } from '@tanstack/react-router'
 import { SkillAuthorBadge } from './skill-author-badge'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 
-export function SkillCard({ skill }: { skill: Skill }) {
+export function SkillCard({
+  skill,
+  className,
+}: {
+  skill: Skill
+  className?: string
+}) {
   const preview = buildPreview(skill.content)
   return (
-    <Card className="group/skill relative" size="sm">
+    <Card
+      className={cn('group/skill relative rounded-none', className)}
+      size="sm"
+    >
       <CardHeader>
-        <div className="flex items-start justify-between gap-3">
-          <CardTitle className="text-base">
+        <div className="flex items-center justify-between gap-3">
+          <CardTitle className="text-base tracking-tight">
             <Link
               to="/$category/$slug"
               params={{ category: skill.category, slug: skill.slug }}
-              className="hover:underline"
+              className="hover:underline capitalize"
             >
-              {skill.title}
+              {skill.name.replace(/-/g, ' ')}
             </Link>
           </CardTitle>
           <SkillAuthorBadge author={skill.author} />
@@ -28,7 +37,7 @@ export function SkillCard({ skill }: { skill: Skill }) {
           params={{ category: skill.category, slug: skill.slug }}
           className="block flex-1 hover:brightness-95 transition-all"
         >
-          <div className="prose prose-sm size-full bg-muted p-2 rounded-md cursor-pointer hover:bg-muted/80 transition-colors">
+          <div className="prose prose-sm size-full bg-muted/70 p-3 rounded-xl cursor-pointer hover:bg-muted/20 transition-colors">
             <code className="whitespace-pre-wrap text-pretty block text-[10px] font-mono text-muted-foreground">
               {preview}
             </code>

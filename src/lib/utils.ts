@@ -11,9 +11,13 @@ export function copyToClipboard(value: string) {
   void navigator.clipboard.writeText(value)
 }
 
-const PREVIEW_LENGTH = 300
+const PREVIEW_LENGTH = 500
 
 export function buildPreview(content: string) {
   if (content.length <= PREVIEW_LENGTH) return content
   return `${content.slice(0, PREVIEW_LENGTH)}...`
+}
+
+export function getGithubRepoHandle(githubUrl: string) {
+  return githubUrl.split('/')[3] + '/' + githubUrl.split('/')[4]
 }

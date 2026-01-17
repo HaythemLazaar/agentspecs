@@ -3,7 +3,7 @@ import { Skill } from '../skill'
 export const anthropicSkills: Skill[] = [
   {
     slug: 'anthropic-frontend-design',
-    title: 'Frontend Design',
+    name: 'frontend-design',
     category: 'agent-skills',
     author: {
       name: 'Anthropic',

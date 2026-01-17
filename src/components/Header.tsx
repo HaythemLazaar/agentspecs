@@ -1,9 +1,9 @@
 import { Link } from '@tanstack/react-router'
 import { ThemeToggle } from './theme-toggle'
 
-export default function Header() {
+export function Header() {
   return (
-    <header className="p-4 mx-auto flex w-full max-w-6xl items-center justify-between sm:px-6 lg:px-10">
+    <header className="p-4 mx-auto flex w-full max-w-7xl items-center justify-between sm:px-6 lg:px-10 sticky top-0 bg-background z-10">
       <h1 className="text-xl font-medium tracking-tighter font-mono">
         <Link to="/">
           <img

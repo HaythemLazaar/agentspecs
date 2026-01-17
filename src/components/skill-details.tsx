@@ -5,10 +5,10 @@ import { ArrowUpRight } from 'lucide-react'
 
 export function SkillDetails({ skill }: { skill: Skill }) {
   return (
-    <div className="my-6">
+    <div>
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-semibold tracking-tight inline-flex items-center gap-2 mb-2">
-          {skill.title}
+        <h1 className="text-3xl font-semibold tracking-tight inline-flex items-center gap-2 mb-2 capitalize">
+          {skill.name.replace(/-/g, ' ')}
         </h1>
         <Link to={skill.author.url} target="_blank">
           <div className="flex items-center gap-1 h-fit">

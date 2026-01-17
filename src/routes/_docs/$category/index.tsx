@@ -1,15 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { Search } from 'lucide-react'
-import { useState } from 'react'
 
 import { NotFound } from '@/components/not-found'
-import { SkillCard } from '@/components/skill-card'
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-  InputGroupText,
-} from '@/components/ui/input-group'
+import { SkillGrid } from '@/components/skill-grid'
 import { getSkillsByCategory, Skill } from '@/data'
 
 export const Route = createFileRoute('/_docs/$category/')({
@@ -65,16 +57,6 @@ export const Route = createFileRoute('/_docs/$category/')({
 
 function CategoryPage() {
   const { category, skills } = Route.useLoaderData()
-  const [query, setQuery] = useState('')
-  const normalizedQuery = query.trim().toLowerCase()
-
-  const filteredSkills = normalizedQuery
-    ? skills.filter((skill: Skill) =>
-        [skill.title, skill.content, skill.category].some((value) =>
-          value.toLowerCase().includes(normalizedQuery),
-        ),
-      )
-    : skills
 
   const categoryTitle = category
     .split('-')
@@ -91,27 +73,7 @@ function CategoryPage() {
         </p>
       </div>
 
-      <div className="w-full max-w-xl">
-        <InputGroup>
-          <InputGroupAddon>
-            <InputGroupText>
-              <Search />
-            </InputGroupText>
-          </InputGroupAddon>
-          <InputGroupInput
-            placeholder="Search by title or content"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            aria-label="Search skills"
-          />
-        </InputGroup>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2 ring ring-border overflow-hidden rounded-lg bg-pattern">
-        {filteredSkills.map((skill: Skill) => (
-          <SkillCard key={skill.id} skill={skill} />
-        ))}
-      </div>
+      <SkillGrid skills={skills} />
     </div>
   )
 }

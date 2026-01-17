@@ -3,6 +3,7 @@ import { createFileRoute, Link, notFound } from '@tanstack/react-router'
 import { NotFound } from '@/components/not-found'
 import { SkillContent } from '@/components/skill-content'
 import { SkillDetails } from '@/components/skill-details'
+import { SkillReadme } from '@/components/skill-readme'
 import { getSkillBySlug, Skill } from '@/data'
 import { ArrowLeft } from 'lucide-react'
 
@@ -44,7 +45,7 @@ export const Route = createFileRoute('/_docs/$category/$slug')({
     return {
       meta: [
         {
-          title: `${skill.title} - AgentSpecs`,
+          title: `${skill.name} - AgentSpecs`,
         },
         {
           name: 'description',
@@ -52,7 +53,7 @@ export const Route = createFileRoute('/_docs/$category/$slug')({
         },
         {
           property: 'og:title',
-          content: `${skill.title} - AgentSpecs`,
+          content: `${skill.name} - AgentSpecs`,
         },
         {
           property: 'og:description',
@@ -68,7 +69,7 @@ export const Route = createFileRoute('/_docs/$category/$slug')({
         },
         {
           name: 'twitter:title',
-          content: skill.title,
+          content: skill.name,
         },
         {
           name: 'twitter:description',
@@ -91,7 +92,7 @@ function SkillPage() {
     .join(' ')
 
   return (
-    <div className="py-4 sm:py-6 max-w-2xl">
+    <div className="py-4 sm:py-6 flex flex-col max-sm:gap-6 gap-10">
       <Link to="/$category" params={{ category: skill.category }}>
         <span className="text-xs text-foreground flex items-center gap-2 rounded-md w-fit capitalize hover:opacity-80 transition-all">
           <ArrowLeft className="size-3.5" /> {categoryTitle}
@@ -99,6 +100,7 @@ function SkillPage() {
       </Link>
       <SkillDetails skill={skill} />
       <SkillContent content={skill.content} />
+      <SkillReadme skill={skill} />
     </div>
   )
 }

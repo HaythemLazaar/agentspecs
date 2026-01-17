@@ -20,7 +20,7 @@ code {
 }
 
 :root {
-  --background: oklch(1 0 0);
+  --background: #fcfcfc;
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -30,14 +30,14 @@ code {
   --primary-foreground: oklch(0.96 0.02 272);
   --secondary: oklch(0.967 0.001 286.375);
   --secondary-foreground: oklch(0.21 0.006 285.885);
-  --muted: oklch(0.97 0 0);
+  --muted: oklch(0.96 0 0);
   --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
+  --accent: oklch(0.96 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.58 0.22 27);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --ring: oklch(0.8 0 0);
   --chart-1: oklch(0.79 0.1 275);
   --chart-2: oklch(0.68 0.16 277);
   --chart-3: oklch(0.59 0.2 277);

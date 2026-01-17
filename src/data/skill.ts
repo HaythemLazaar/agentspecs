@@ -1,6 +1,6 @@
 export type Skill = {
   slug: string
-  title: string
+  name: string
   category: string
   content: string
   rawMarkdownUrl: string
