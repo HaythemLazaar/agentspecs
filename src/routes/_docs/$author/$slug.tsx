@@ -7,7 +7,7 @@ import { SkillReadme } from '@/components/skill-readme'
 import { getSkillBySlug, Skill } from '@/data'
 import { IconArrowLeft } from '@tabler/icons-react'
 
-export const Route = createFileRoute('/_docs/$category/$slug')({
+export const Route = createFileRoute('/_docs/$author/$slug')({
   loader: async ({ params }) => {
     const skill = getSkillBySlug(params.slug)
     if (!skill) {

@@ -63,7 +63,7 @@ function Home() {
 
   return (
     <main className="bg-background text-foreground">
-      <section className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-4 py-10 sm:px-6 lg:px-10">
+      <section className="mx-auto flex w-full max-w-340 flex-col gap-8 px-4 py-10 sm:px-6 lg:px-10">
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <h1 className="text-balance text-3xl font-semibold sm:text-4xl">
@@ -93,7 +93,7 @@ function Home() {
 
         <SkillGrid
           skills={filteredSkills}
-          className="xl:grid-cols-3"
+          className="xl:grid-cols-4"
           hideSearch={true}
         />
       </section>

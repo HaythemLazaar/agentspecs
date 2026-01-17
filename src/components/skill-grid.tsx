@@ -33,7 +33,7 @@ export function SkillGrid({
   return (
     <>
       {!hideSearch && (
-        <div className="w-full max-w-xl">
+        <div className="w-full">
           <InputGroup>
             <InputGroupAddon>
               <InputGroupText>
@@ -52,11 +52,11 @@ export function SkillGrid({
 
       <div
         className={cn(
-          'grid grid-cols-1 md:grid-cols-2 gap-x-2 ring ring-border overflow-hidden rounded-2xl relative',
+          'grid grid-cols-1 md:grid-cols-2 gap-x-2 ring border ring-offset-3 ring-offset-background ring-border overflow-hidden rounded-2xl relative',
           className,
         )}
       >
-        <div className="absolute inset-0 size-full bg-pattern z-0 blur-[0.5px] opacity-40" />
+        <div className="absolute inset-0 size-full bg-pattern z-0 blur-[0.5px] opacity-30" />
         {filteredSkills.map((skill: Skill) => (
           <SkillCard key={skill.slug} skill={skill} />
         ))}

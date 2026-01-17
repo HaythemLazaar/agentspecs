@@ -11,8 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as DocsRouteRouteImport } from './routes/_docs/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DocsDirectoryRouteImport } from './routes/_docs/directory'
 import { Route as DocsCategoryIndexRouteImport } from './routes/_docs/$category/index'
+import { Route as DocsAuthorIndexRouteImport } from './routes/_docs/$author/index'
 import { Route as DocsCategorySlugRouteImport } from './routes/_docs/$category/$slug'
+import { Route as DocsAuthorSlugRouteImport } from './routes/_docs/$author/$slug'
 
 const DocsRouteRoute = DocsRouteRouteImport.update({
   id: '/_docs',
@@ -23,9 +26,19 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DocsDirectoryRoute = DocsDirectoryRouteImport.update({
+  id: '/directory',
+  path: '/directory',
+  getParentRoute: () => DocsRouteRoute,
+} as any)
 const DocsCategoryIndexRoute = DocsCategoryIndexRouteImport.update({
   id: '/$category/',
   path: '/$category/',
+  getParentRoute: () => DocsRouteRoute,
+} as any)
+const DocsAuthorIndexRoute = DocsAuthorIndexRouteImport.update({
+  id: '/$author/',
+  path: '/$author/',
   getParentRoute: () => DocsRouteRoute,
 } as any)
 const DocsCategorySlugRoute = DocsCategorySlugRouteImport.update({
@@ -33,34 +46,63 @@ const DocsCategorySlugRoute = DocsCategorySlugRouteImport.update({
   path: '/$category/$slug',
   getParentRoute: () => DocsRouteRoute,
 } as any)
+const DocsAuthorSlugRoute = DocsAuthorSlugRouteImport.update({
+  id: '/$author/$slug',
+  path: '/$author/$slug',
+  getParentRoute: () => DocsRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/directory': typeof DocsDirectoryRoute
+  '/$author/$slug': typeof DocsAuthorSlugRoute
   '/$category/$slug': typeof DocsCategorySlugRoute
+  '/$author': typeof DocsAuthorIndexRoute
   '/$category': typeof DocsCategoryIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/directory': typeof DocsDirectoryRoute
+  '/$author/$slug': typeof DocsAuthorSlugRoute
   '/$category/$slug': typeof DocsCategorySlugRoute
+  '/$author': typeof DocsAuthorIndexRoute
   '/$category': typeof DocsCategoryIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_docs': typeof DocsRouteRouteWithChildren
+  '/_docs/directory': typeof DocsDirectoryRoute
+  '/_docs/$author/$slug': typeof DocsAuthorSlugRoute
   '/_docs/$category/$slug': typeof DocsCategorySlugRoute
+  '/_docs/$author/': typeof DocsAuthorIndexRoute
   '/_docs/$category/': typeof DocsCategoryIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$category/$slug' | '/$category'
+  fullPaths:
+    | '/'
+    | '/directory'
+    | '/$author/$slug'
+    | '/$category/$slug'
+    | '/$author'
+    | '/$category'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$category/$slug' | '/$category'
+  to:
+    | '/'
+    | '/directory'
+    | '/$author/$slug'
+    | '/$category/$slug'
+    | '/$author'
+    | '/$category'
   id:
     | '__root__'
     | '/'
     | '/_docs'
+    | '/_docs/directory'
+    | '/_docs/$author/$slug'
     | '/_docs/$category/$slug'
+    | '/_docs/$author/'
     | '/_docs/$category/'
   fileRoutesById: FileRoutesById
 }
@@ -85,11 +127,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_docs/directory': {
+      id: '/_docs/directory'
+      path: '/directory'
+      fullPath: '/directory'
+      preLoaderRoute: typeof DocsDirectoryRouteImport
+      parentRoute: typeof DocsRouteRoute
+    }
     '/_docs/$category/': {
       id: '/_docs/$category/'
       path: '/$category'
       fullPath: '/$category'
       preLoaderRoute: typeof DocsCategoryIndexRouteImport
+      parentRoute: typeof DocsRouteRoute
+    }
+    '/_docs/$author/': {
+      id: '/_docs/$author/'
+      path: '/$author'
+      fullPath: '/$author'
+      preLoaderRoute: typeof DocsAuthorIndexRouteImport
       parentRoute: typeof DocsRouteRoute
     }
     '/_docs/$category/$slug': {
@@ -99,16 +155,29 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DocsCategorySlugRouteImport
       parentRoute: typeof DocsRouteRoute
     }
+    '/_docs/$author/$slug': {
+      id: '/_docs/$author/$slug'
+      path: '/$author/$slug'
+      fullPath: '/$author/$slug'
+      preLoaderRoute: typeof DocsAuthorSlugRouteImport
+      parentRoute: typeof DocsRouteRoute
+    }
   }
 }
 
 interface DocsRouteRouteChildren {
+  DocsDirectoryRoute: typeof DocsDirectoryRoute
+  DocsAuthorSlugRoute: typeof DocsAuthorSlugRoute
   DocsCategorySlugRoute: typeof DocsCategorySlugRoute
+  DocsAuthorIndexRoute: typeof DocsAuthorIndexRoute
   DocsCategoryIndexRoute: typeof DocsCategoryIndexRoute
 }
 
 const DocsRouteRouteChildren: DocsRouteRouteChildren = {
+  DocsDirectoryRoute: DocsDirectoryRoute,
+  DocsAuthorSlugRoute: DocsAuthorSlugRoute,
   DocsCategorySlugRoute: DocsCategorySlugRoute,
+  DocsAuthorIndexRoute: DocsAuthorIndexRoute,
   DocsCategoryIndexRoute: DocsCategoryIndexRoute,
 }
 

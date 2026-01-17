@@ -9,9 +9,9 @@ export const Route = createFileRoute('/_docs')({
 
 function DocsLayout() {
   return (
-    <div className="flex bg-background max-w-7xl mx-auto gap-10 px-4 sm:px-6 lg:px-10">
+    <div className="flex bg-background max-w-340 mx-auto gap-10 px-4 sm:px-6 lg:px-10">
       <DocsSidebar />
-      <main className="flex-1">
+      <main className="flex-1 max-w-2xl mx-auto">
         <Outlet />
       </main>
       <div className="w-50" />
