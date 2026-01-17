@@ -11,18 +11,9 @@ export function copyToClipboard(value: string) {
   void navigator.clipboard.writeText(value)
 }
 
+const PREVIEW_LENGTH = 300
+
 export function buildPreview(content: string) {
-  if (!content) return 'No preview available.'
-  const cleaned = content
-    .replace(/```[\s\S]*?```/g, '')
-    .replace(/\[(.*?)\]\(.*?\)/g, '$1')
-    .replace(/[`#>*_]/g, '')
-    .replace(/\s+/g, ' ')
-    .trim()
-
-  if (cleaned.length <= 180) {
-    return cleaned
-  }
-
-  return `${cleaned.slice(0, 180).trim()}…`
+  if (content.length <= PREVIEW_LENGTH) return content
+  return `${content.slice(0, PREVIEW_LENGTH)}...`
 }

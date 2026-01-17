@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Search } from 'lucide-react'
 import { useState } from 'react'
 
-import { FileCard } from '@/components/file-card'
+import { SkillCard } from '@/components/skill-card'
 import {
   InputGroup,
   InputGroupAddon,
@@ -67,11 +67,11 @@ function Home() {
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <h1 className="text-balance text-3xl font-semibold sm:text-4xl">
-              Power up your coding agents
+              Skill up your coding agents
             </h1>
             <p className="text-pretty text-sm text-muted-foreground sm:text-base">
-              Browse vetted building blocks for reliable AI agents. Search for a
-              specific pattern, then install or copy the exact spec you need.
+              Browse skills made by industry experts. Search for a specific
+              skill, then install or copy the exact spec you need.
             </p>
           </div>
           <div className="w-full max-w-2xl">
@@ -93,7 +93,7 @@ function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-2 ring ring-border overflow-hidden rounded-md bg-pattern">
           {filteredSkills.map((skill: Skill) => (
-            <FileCard key={skill.slug} skill={skill} />
+            <SkillCard key={skill.slug} skill={skill} />
           ))}
           {filteredSkills.length === 0 && (
             <div className="p-6 text-sm text-muted-foreground text-center col-span-full">

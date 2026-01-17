@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from '@tanstack/react-router'
 
 import { NotFound } from '@/components/not-found'
 import { SkillContent } from '@/components/skill-content'
+import { SkillDetails } from '@/components/skill-details'
 import { getSkillBySlug, Skill } from '@/data'
 import { ArrowLeft } from 'lucide-react'
 
@@ -90,22 +91,14 @@ function SkillPage() {
     .join(' ')
 
   return (
-    <div className="space-y-6 py-4 sm:py-6">
+    <div className="py-4 sm:py-6 max-w-2xl">
       <Link to="/$category" params={{ category: skill.category }}>
-        <span className="text-xs text-foreground flex items-center gap-2 bg-muted px-2 py-1 rounded-md w-fit capitalize">
-          <ArrowLeft className="size-4" /> {categoryTitle.toLowerCase()}
+        <span className="text-xs text-foreground flex items-center gap-2 rounded-md w-fit capitalize hover:opacity-80 transition-all">
+          <ArrowLeft className="size-3.5" /> {categoryTitle}
         </span>
       </Link>
-
-      <div className="flex-1 min-w-0">
-        <h1 className="text-4xl font-bold tracking-tight mt-4 mb-6">
-          {skill.title}
-        </h1>
-
-        <div className="space-y-8">
-          <SkillContent content={skill.content} />
-        </div>
-      </div>
+      <SkillDetails skill={skill} />
+      <SkillContent content={skill.content} />
     </div>
   )
 }

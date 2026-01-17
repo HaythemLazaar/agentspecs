@@ -4,7 +4,8 @@ export type Skill = {
   category: string
   content: string
   rawMarkdownUrl: string
-  author?: {
+  githubUrl: string
+  author: {
     name: string
     url?: string
     avatar?: string

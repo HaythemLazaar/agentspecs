@@ -34,5 +34,12 @@ export function getCategories(): string[] {
   return Array.from(new Set(allSkills.map((skill) => skill.category)))
 }
 
+/**
+ * Get all unique categories
+ */
+export function getAuthors(): string[] {
+  return Array.from(new Set(allSkills.map((skill) => skill.author.name)))
+}
+
 // Export the Skill type
 export type { Skill } from './skill'

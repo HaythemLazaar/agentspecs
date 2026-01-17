@@ -2,8 +2,8 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Search } from 'lucide-react'
 import { useState } from 'react'
 
-import { FileCard } from '@/components/file-card'
 import { NotFound } from '@/components/not-found'
+import { SkillCard } from '@/components/skill-card'
 import {
   InputGroup,
   InputGroupAddon,
@@ -109,7 +109,7 @@ function CategoryPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2 ring ring-border overflow-hidden rounded-lg bg-pattern">
         {filteredSkills.map((skill: Skill) => (
-          <FileCard key={skill.id} skill={skill} />
+          <SkillCard key={skill.id} skill={skill} />
         ))}
       </div>
     </div>

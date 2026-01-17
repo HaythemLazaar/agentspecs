@@ -7,9 +7,16 @@ export default function Header() {
       <h1 className="text-xl font-medium tracking-tighter font-mono">
         <Link to="/">
           <img
-            src="/logo512.png"
+            src="/icon.svg"
             alt="AgentSpecs"
-            className="border border-neutral-300 shadow-xs shadow-neutral-600/10 rounded-lg"
+            className="ring block dark:hidden ring-neutral-300/50 shadow-xs shadow-neutral-900/10 rounded-lg"
+            width={32}
+            height={32}
+          />
+          <img
+            src="/icon-dark.svg"
+            alt="AgentSpecs"
+            className="ring hidden dark:block ring-neutral-500/50 shadow-xs shadow-neutral-100/10 rounded-lg"
             width={32}
             height={32}
           />
