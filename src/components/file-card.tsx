@@ -16,7 +16,7 @@ export function FileCard({ skill }: { skill: Skill }) {
             <CardTitle className="text-base">
               <Link
                 to="/$category/$skillId"
-                params={{ category: skill.category, skillId: skill.id }}
+                params={{ category: skill.category, slug: skill.slug }}
                 className="hover:underline"
               >
                 {skill.title}
@@ -30,7 +30,7 @@ export function FileCard({ skill }: { skill: Skill }) {
               aria-label={`Install ${skill.title}`}
               onClick={(e) => {
                 e.stopPropagation()
-                copyToClipboard(`agentspecs install ${skill.id}`)
+                copyToClipboard(`agentspecs install ${skill.slug}`)
               }}
             >
               <Download />
@@ -51,8 +51,8 @@ export function FileCard({ skill }: { skill: Skill }) {
       </CardHeader>
       <CardContent className="flex-1 flex flex-col gap-2">
         <Link
-          to="/$category/$skillId"
-          params={{ category: skill.category, skillId: skill.id }}
+          to="/$category/$slug"
+          params={{ category: skill.category, slug: skill.slug }}
           className="block flex-1 hover:brightness-95 transition-all"
         >
           <div className="size-full bg-muted p-1 rounded-md cursor-pointer hover:bg-muted/80 transition-colors">

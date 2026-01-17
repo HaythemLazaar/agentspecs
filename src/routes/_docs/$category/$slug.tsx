@@ -1,17 +1,20 @@
 import { createFileRoute, Link, notFound } from '@tanstack/react-router'
 
 import { NotFound } from '@/components/not-found'
-import { Card, CardContent } from '@/components/ui/card'
-import { getSkillById, Skill } from '@/data'
+import { SkillContent } from '@/components/skill-content'
+import { getSkillBySlug, Skill } from '@/data'
 import { ArrowLeft } from 'lucide-react'
 
-export const Route = createFileRoute('/_docs/$category/$skillId')({
+export const Route = createFileRoute('/_docs/$category/$slug')({
   loader: async ({ params }) => {
-    const skill = getSkillById(params.skillId)
+    const skill = getSkillBySlug(params.slug)
     if (!skill) {
       throw notFound()
     }
-    return { skill }
+
+    return {
+      skill,
+    }
   },
   head: ({ loaderData }) => {
     const skill = loaderData?.skill as Skill | undefined
@@ -78,11 +81,14 @@ export const Route = createFileRoute('/_docs/$category/$skillId')({
 })
 
 function SkillPage() {
-  const { skill } = Route.useLoaderData() as { skill: Skill }
+  const { skill } = Route.useLoaderData() as {
+    skill: Skill
+  }
   const categoryTitle = skill.category
     .split('-')
     .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ')
+
   return (
     <div className="space-y-6 py-4 sm:py-6">
       <Link to="/$category" params={{ category: skill.category }}>
@@ -90,17 +96,16 @@ function SkillPage() {
           <ArrowLeft className="size-4" /> {categoryTitle.toLowerCase()}
         </span>
       </Link>
-      <h1 className="text-4xl font-bold tracking-tight mt-4">{skill.title}</h1>
 
-      <Card className="max-w-2xl shadow-xs rounded-lg">
-        <CardContent>
-          <div className="prose prose-sm max-w-none">
-            <pre className="whitespace-pre-wrap font-mono text-sm text-foreground">
-              {skill.content}
-            </pre>
-          </div>
-        </CardContent>
-      </Card>
+      <div className="flex-1 min-w-0">
+        <h1 className="text-4xl font-bold tracking-tight mt-4 mb-6">
+          {skill.title}
+        </h1>
+
+        <div className="space-y-8">
+          <SkillContent content={skill.content} />
+        </div>
+      </div>
     </div>
   )
 }

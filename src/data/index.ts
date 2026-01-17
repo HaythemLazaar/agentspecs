@@ -14,10 +14,10 @@ export function getAllSkills(): Skill[] {
 }
 
 /**
- * Get a skill by ID
+ * Get a skill by slug
  */
-export function getSkillById(id: string): Skill | undefined {
-  return allSkills.find((skill) => skill.id === id)
+export function getSkillBySlug(slug: string): Skill | undefined {
+  return allSkills.find((skill) => skill.slug === slug)
 }
 
 /**

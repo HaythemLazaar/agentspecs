@@ -12,7 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as DocsRouteRouteImport } from './routes/_docs/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DocsCategoryIndexRouteImport } from './routes/_docs/$category/index'
-import { Route as DocsCategorySkillIdRouteImport } from './routes/_docs/$category/$skillId'
+import { Route as DocsCategorySlugRouteImport } from './routes/_docs/$category/$slug'
 
 const DocsRouteRoute = DocsRouteRouteImport.update({
   id: '/_docs',
@@ -28,39 +28,39 @@ const DocsCategoryIndexRoute = DocsCategoryIndexRouteImport.update({
   path: '/$category/',
   getParentRoute: () => DocsRouteRoute,
 } as any)
-const DocsCategorySkillIdRoute = DocsCategorySkillIdRouteImport.update({
-  id: '/$category/$skillId',
-  path: '/$category/$skillId',
+const DocsCategorySlugRoute = DocsCategorySlugRouteImport.update({
+  id: '/$category/$slug',
+  path: '/$category/$slug',
   getParentRoute: () => DocsRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/$category/$skillId': typeof DocsCategorySkillIdRoute
+  '/$category/$slug': typeof DocsCategorySlugRoute
   '/$category': typeof DocsCategoryIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/$category/$skillId': typeof DocsCategorySkillIdRoute
+  '/$category/$slug': typeof DocsCategorySlugRoute
   '/$category': typeof DocsCategoryIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_docs': typeof DocsRouteRouteWithChildren
-  '/_docs/$category/$skillId': typeof DocsCategorySkillIdRoute
+  '/_docs/$category/$slug': typeof DocsCategorySlugRoute
   '/_docs/$category/': typeof DocsCategoryIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$category/$skillId' | '/$category'
+  fullPaths: '/' | '/$category/$slug' | '/$category'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$category/$skillId' | '/$category'
+  to: '/' | '/$category/$slug' | '/$category'
   id:
     | '__root__'
     | '/'
     | '/_docs'
-    | '/_docs/$category/$skillId'
+    | '/_docs/$category/$slug'
     | '/_docs/$category/'
   fileRoutesById: FileRoutesById
 }
@@ -92,23 +92,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DocsCategoryIndexRouteImport
       parentRoute: typeof DocsRouteRoute
     }
-    '/_docs/$category/$skillId': {
-      id: '/_docs/$category/$skillId'
-      path: '/$category/$skillId'
-      fullPath: '/$category/$skillId'
-      preLoaderRoute: typeof DocsCategorySkillIdRouteImport
+    '/_docs/$category/$slug': {
+      id: '/_docs/$category/$slug'
+      path: '/$category/$slug'
+      fullPath: '/$category/$slug'
+      preLoaderRoute: typeof DocsCategorySlugRouteImport
       parentRoute: typeof DocsRouteRoute
     }
   }
 }
 
 interface DocsRouteRouteChildren {
-  DocsCategorySkillIdRoute: typeof DocsCategorySkillIdRoute
+  DocsCategorySlugRoute: typeof DocsCategorySlugRoute
   DocsCategoryIndexRoute: typeof DocsCategoryIndexRoute
 }
 
 const DocsRouteRouteChildren: DocsRouteRouteChildren = {
-  DocsCategorySkillIdRoute: DocsCategorySkillIdRoute,
+  DocsCategorySlugRoute: DocsCategorySlugRoute,
   DocsCategoryIndexRoute: DocsCategoryIndexRoute,
 }
 

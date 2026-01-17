@@ -91,18 +91,17 @@ function Home() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-2 ring ring-border overflow-hidden rounded-lg bg-pattern">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-2 ring ring-border overflow-hidden rounded-md bg-pattern">
           {filteredSkills.map((skill: Skill) => (
-            <FileCard key={skill.id} skill={skill} />
+            <FileCard key={skill.slug} skill={skill} />
           ))}
+          {filteredSkills.length === 0 && (
+            <div className="p-6 text-sm text-muted-foreground text-center col-span-full">
+              No skills match that search. Try a different phrase or clear the
+              filter.
+            </div>
+          )}
         </div>
-
-        {filteredSkills.length === 0 && (
-          <div className="rounded-lg border border-dashed p-6 text-sm text-muted-foreground">
-            No skills match that search. Try a different phrase or clear the
-            filter.
-          </div>
-        )}
       </section>
     </main>
   )
