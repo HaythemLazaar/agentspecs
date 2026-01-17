@@ -23,7 +23,9 @@ function RouteComponent() {
         <h1 className="text-4xl font-bold tracking-tight capitalize inln">
           {author}
         </h1>
-        <p className="text-muted-foreground">Browse skills made by {author}.</p>
+        <p className="text-muted-foreground mb-3">
+          Browse skills made by {author}.
+        </p>
         {skills && skills.length > 0 && (
           <LinkChip link={skills[0].githubUrl} label="GitHub" />
         )}

@@ -31,17 +31,15 @@ export function SkillCard({
           <SkillAuthorBadge author={skill.author} />
         </div>
       </CardHeader>
-      <CardContent className="flex-1">
+      <CardContent className="flex-1 max-h-52.5 overflow-hidden">
         <Link
           to="/$category/$slug"
           params={{ category: skill.category, slug: skill.slug }}
-          className="block flex-1 hover:brightness-95 transition-all"
+          className="mask-b-from-80% backdrop-blur-2xl block hover:brightness-95 transition-all prose prose-sm size-full bg-muted/70 p-3 rounded cursor-pointer hover:bg-muted/20"
         >
-          <div className="prose prose-sm size-full bg-muted/70 p-3 rounded-xl cursor-pointer hover:bg-muted/20 transition-colors">
-            <code className="whitespace-pre-wrap text-pretty block text-[10px] font-mono text-muted-foreground">
-              {preview}
-            </code>
-          </div>
+          <code className="whitespace-pre-wrap text-pretty block text-[10px] font-mono text-muted-foreground">
+            {preview}
+          </code>
         </Link>
       </CardContent>
     </Card>

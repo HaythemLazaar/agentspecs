@@ -12,6 +12,7 @@ export const Route = createFileRoute('/_docs/$category/$slug')({
     if (!skill) {
       throw notFound()
     }
+    console.log(params.slug)
 
     return {
       skill,
