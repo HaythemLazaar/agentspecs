@@ -1,4 +1,4 @@
-import type { Skill } from './agent-skills'
+import type { Skill } from '../skill'
 
 export const commands: Skill[] = [
   {

@@ -1,4 +1,4 @@
-import { IconSunMoon } from '@tabler/icons-react'
+import { IconBrightness } from '@tabler/icons-react'
 import * as React from 'react'
 import { useTheme } from './theme-provider'
 import { Button } from './ui/button'
@@ -19,7 +19,7 @@ export function ThemeToggle() {
       className="size-8 p-1"
       onClick={handleToggleMode}
     >
-      <IconSunMoon className="size-4" />
+      <IconBrightness className="size-4" />
     </Button>
   )
 }

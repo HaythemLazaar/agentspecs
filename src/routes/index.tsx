@@ -9,8 +9,8 @@ import {
   InputGroupInput,
   InputGroupText,
 } from '@/components/ui/input-group'
-import type { Skill } from '@/data/skills'
-import { getAllSkills } from '@/data/skills'
+import type { Skill } from '@/data'
+import { getAllSkills } from '@/data'
 
 export const Route = createFileRoute('/')({
   loader: async () => {

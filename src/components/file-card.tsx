@@ -1,16 +1,10 @@
-import { Skill } from '@/data/skills'
+import { Skill } from '@/data'
 import { buildPreview, copyToClipboard } from '@/lib/utils'
 import { Link } from '@tanstack/react-router'
 import { Copy, Download } from 'lucide-react'
 import { Badge } from './ui/badge'
 import { Button } from './ui/button'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from './ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 
 export function FileCard({ skill }: { skill: Skill }) {
   const preview = buildPreview(skill.content)
@@ -21,53 +15,45 @@ export function FileCard({ skill }: { skill: Skill }) {
           <div className="flex flex-col gap-1">
             <CardTitle className="text-base">
               <Link
-                to="/skills/$skillId"
-                params={{ skillId: skill.id }}
+                to="/$category/$skillId"
+                params={{ category: skill.category, skillId: skill.id }}
                 className="hover:underline"
               >
                 {skill.title}
               </Link>
             </CardTitle>
-            <CardDescription className="text-xs text-muted-foreground">
-              <span className="tabular-nums">{skill.when}</span>
-            </CardDescription>
           </div>
-          <div className="flex items-center gap-2">
-            <Badge variant="secondary" className="uppercase">
-              {skill.category}
-            </Badge>
-            <div className="flex items-center gap-1 opacity-0 group-hover/skill:opacity-100">
-              <Button
-                size="icon-xs"
-                variant="ghost"
-                aria-label={`Install ${skill.title}`}
-                onClick={(e) => {
-                  e.stopPropagation()
-                  copyToClipboard(`agentspecs install ${skill.id}`)
-                }}
-              >
-                <Download />
-              </Button>
-              <Button
-                size="icon-xs"
-                variant="ghost"
-                aria-label={`Copy ${skill.title}`}
-                onClick={(e) => {
-                  e.stopPropagation()
-                  copyToClipboard(skill.content)
-                }}
-              >
-                <Copy />
-              </Button>
-            </div>
+          <div className="flex items-center gap-1 opacity-0 group-hover/skill:opacity-100">
+            <Button
+              size="icon-xs"
+              variant="ghost"
+              aria-label={`Install ${skill.title}`}
+              onClick={(e) => {
+                e.stopPropagation()
+                copyToClipboard(`agentspecs install ${skill.id}`)
+              }}
+            >
+              <Download />
+            </Button>
+            <Button
+              size="icon-xs"
+              variant="ghost"
+              aria-label={`Copy ${skill.title}`}
+              onClick={(e) => {
+                e.stopPropagation()
+                copyToClipboard(skill.content)
+              }}
+            >
+              <Copy />
+            </Button>
           </div>
         </div>
       </CardHeader>
-      <CardContent className="flex-1">
+      <CardContent className="flex-1 flex flex-col gap-2">
         <Link
           to="/$category/$skillId"
           params={{ category: skill.category, skillId: skill.id }}
-          className="block size-full"
+          className="block flex-1 hover:brightness-95 transition-all"
         >
           <div className="size-full bg-muted p-1 rounded-md cursor-pointer hover:bg-muted/80 transition-colors">
             <p className="text-pretty text-[10px] font-mono text-muted-foreground">
@@ -75,6 +61,9 @@ export function FileCard({ skill }: { skill: Skill }) {
             </p>
           </div>
         </Link>
+        <Badge variant="secondary" className="uppercase">
+          {skill.category}
+        </Badge>
       </CardContent>
     </Card>
   )

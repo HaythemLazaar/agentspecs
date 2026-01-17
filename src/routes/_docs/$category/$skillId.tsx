@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from '@tanstack/react-router'
 
 import { NotFound } from '@/components/not-found'
 import { Card, CardContent } from '@/components/ui/card'
-import { getSkillById, Skill } from '@/data/skills'
+import { getSkillById, Skill } from '@/data'
 import { ArrowLeft } from 'lucide-react'
 
 export const Route = createFileRoute('/_docs/$category/$skillId')({

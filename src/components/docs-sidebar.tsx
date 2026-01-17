@@ -1,4 +1,4 @@
-import { getCategories } from '@/data/skills'
+import { getCategories } from '@/data'
 import { cn } from '@/lib/utils'
 import { Link, useRouterState } from '@tanstack/react-router'
 

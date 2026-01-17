@@ -10,7 +10,7 @@ import {
   InputGroupInput,
   InputGroupText,
 } from '@/components/ui/input-group'
-import { getSkillsByCategory, Skill } from '@/data/skills'
+import { getSkillsByCategory, Skill } from '@/data'
 
 export const Route = createFileRoute('/_docs/$category/')({
   loader: async ({ params }) => {

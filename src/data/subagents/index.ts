@@ -1,4 +1,4 @@
-import type { Skill } from './agent-skills'
+import { Skill } from '../skill'
 
 export const subagents: Skill[] = [
   {
