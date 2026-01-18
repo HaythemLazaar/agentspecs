@@ -39,36 +39,47 @@ export function getSkillsByAuthor(author: string): Skill[] {
  * Get all unique categories
  */
 export function getCategories(): { name: string; total: number }[] {
-  return Array.from(
-    new Set(
-      allSkills.map((skill) => {
-        return {
-          name: skill.category,
-          total: getSkillsByCategory(skill.category).length,
-        }
-      }),
-    ),
+  const uniqueCategories = Array.from(
+    new Set(allSkills.map((skill) => skill.category)),
   )
+  return uniqueCategories.map((category) => ({
+    name: category,
+    total: getSkillsByCategory(category).length,
+  }))
 }
 
 /**
- * Get all unique categories
+ * Get all unique authors
  */
 export function getAuthors(): {
   name: string
   url?: string
   avatar?: string
+  github?: string
 }[] {
-  return Array.from(
-    new Set(
-      allSkills.map((skill) => ({
+  const authorMap = new Map<
+    string,
+    {
+      name: string
+      url?: string
+      avatar?: string
+      github?: string
+    }
+  >()
+
+  allSkills.forEach((skill) => {
+    const authorName = skill.author.name
+    if (!authorMap.has(authorName)) {
+      authorMap.set(authorName, {
         name: skill.author.name,
         url: skill.author.url,
         avatar: skill.author.avatar,
         github: getGithubRepoHandle(skill.githubUrl),
-      })),
-    ),
-  )
+      })
+    }
+  })
+
+  return Array.from(authorMap.values())
 }
 
 // Export the Skill type
