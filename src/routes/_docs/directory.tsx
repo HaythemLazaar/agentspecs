@@ -6,10 +6,11 @@ import {
   InputGroupInput,
   InputGroupText,
 } from '@/components/ui/input-group'
+import { LinkChip } from '@/components/ui/link-chip'
 import { getAuthors } from '@/data'
 import { IconCaretRightFilled } from '@tabler/icons-react'
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { ArrowUpRight, Search } from 'lucide-react'
+import { Search } from 'lucide-react'
 import { useState } from 'react'
 
 export const Route = createFileRoute('/_docs/directory')({
@@ -70,8 +71,17 @@ function RouteComponent() {
 function AuthorCard({
   author,
 }: {
-  author: { name: string; url?: string; avatar?: string; github?: string }
+  author: {
+    name: string
+    url?: string
+    avatar?: string
+    github?: string
+    count?: number
+  }
 }) {
+  const link = author.github
+    ? `https://github.com/${author.github}`
+    : author.url
   return (
     <div className="flex items-center gap-4 border-b py-6">
       <Avatar size="lg">
@@ -82,7 +92,16 @@ function AuthorCard({
         <span className="text-sm font-medium tracking-tight">
           {author.name}
         </span>
-        <Link to={`https://github.com/${author.github}`} target="_blank">
+        {link && (
+          <LinkChip
+            link={link}
+            label={author.github ? author.github : 'Website'}
+            iconSrc={
+              author.github ? 'https://github.com/favicon.ico' : undefined
+            }
+          />
+        )}
+        {/* <Link to={`https://github.com/${author.github}`} target="_blank">
           <span className="text-[11px] font-mono tracking-tighter text-foreground px-2 py-0.5 w-fit rounded-full bg-muted flex items-center gap-1 group/chip">
             <Avatar size="xs" className="size-3!">
               <AvatarImage src="https://github.com/favicon.ico" />
@@ -90,7 +109,7 @@ function AuthorCard({
             {author.github}
             <ArrowUpRight className="size-3 group-hover/chip:rotate-45 transition-all" />
           </span>
-        </Link>
+        </Link> */}
       </div>
       <Link
         to="/$author/skills"
@@ -101,7 +120,7 @@ function AuthorCard({
           variant="outline"
           className="ml-auto group/button overflow-hidden"
         >
-          View Skills{' '}
+          {author.count} Skill{author.count === 1 ? '' : 's'}{' '}
           <span className="relative size-3 ">
             <IconCaretRightFilled className="absolute top-0 left-0 size-3 opacity-0 group-hover/button:opacity-100 -translate-x-3 group-hover/button:translate-x-0 transition-all" />
             <IconCaretRightFilled

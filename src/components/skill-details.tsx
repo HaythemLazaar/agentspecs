@@ -4,6 +4,11 @@ import { Link } from '@tanstack/react-router'
 import { LinkChip } from './ui/link-chip'
 
 export function SkillDetails({ skill }: { skill: Skill }) {
+  const link = skill.githubUrl
+    ? `https://github.com/${skill.githubUrl}`
+    : skill.author.url
+      ? skill.author.url
+      : undefined
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -24,7 +29,15 @@ export function SkillDetails({ skill }: { skill: Skill }) {
       </div>
 
       <div className="flex items-center gap-2">
-        <LinkChip link={skill.githubUrl} label="GitHub" />
+        {link && (
+          <LinkChip
+            link={link}
+            label={skill.githubUrl ? 'GitHub' : 'Website'}
+            iconSrc={
+              skill.githubUrl ? 'https://github.com/favicon.ico' : undefined
+            }
+          />
+        )}
         <LinkChip link={skill.rawMarkdownUrl} label="Markdown" />
       </div>
     </div>

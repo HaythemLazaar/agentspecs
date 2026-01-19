@@ -64,6 +64,7 @@ export function getAuthors(): {
       url?: string
       avatar?: string
       github?: string
+      count?: number
     }
   >()
 
@@ -74,7 +75,10 @@ export function getAuthors(): {
         name: skill.author.name,
         url: skill.author.url,
         avatar: skill.author.avatar,
-        github: getGithubRepoHandle(skill.githubUrl),
+        github: skill.githubUrl
+          ? getGithubRepoHandle(skill.githubUrl)
+          : undefined,
+        count: getSkillsByAuthor(skill.author.name).length,
       })
     }
   })

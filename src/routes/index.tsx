@@ -63,17 +63,15 @@ function Home() {
 
   return (
     <main className="bg-background text-foreground">
-      <section className="mx-auto flex w-full max-w-340 flex-col gap-8 px-4 py-10 sm:px-6 lg:px-10">
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <h1 className="text-balance text-3xl font-semibold sm:text-4xl">
-              Skill up your coding agents
-            </h1>
-            <p className="text-pretty text-sm text-muted-foreground sm:text-base">
-              Browse skills made by industry experts. Search for a specific
-              skill, then install or copy the exact spec you need.
-            </p>
-          </div>
+      <section className="mx-auto flex w-full max-w-5xl flex-col gap-8 px-4 py-10 sm:px-6 lg:px-10">
+        <div className="flex flex-col items-center gap-4 text-center">
+          <h1 className="text-balance text-3xl font-semibold sm:text-4xl">
+            Skill up your coding agents
+          </h1>
+          <p className="text-pretty max-w-md text-sm text-muted-foreground sm:text-base -mt-2">
+            Browse skills made by industry experts. Search for a specific skill,
+            then install or copy the exact spec you need.
+          </p>
           <div className="w-full max-w-2xl">
             <InputGroup>
               <InputGroupAddon>
@@ -93,7 +91,7 @@ function Home() {
 
         <SkillGrid
           skills={filteredSkills}
-          className="xl:grid-cols-4"
+          className="xl:grid-cols-3"
           hideSearch={true}
         />
       </section>

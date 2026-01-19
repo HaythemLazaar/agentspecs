@@ -4,7 +4,7 @@ export type Skill = {
   category: string
   content: string
   rawMarkdownUrl: string
-  githubUrl: string
+  githubUrl?: string
   author: {
     name: string
     url?: string
@@ -12,4 +12,5 @@ export type Skill = {
   }
   tags?: string[]
   verified?: boolean
+  customInstall?: string
 }

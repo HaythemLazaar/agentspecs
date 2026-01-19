@@ -17,6 +17,11 @@ export const Route = createFileRoute('/_docs/$author/skills')({
 
 function RouteComponent() {
   const { author, skills } = Route.useLoaderData()
+  const link = skills[0].githubUrl
+    ? `https://github.com/${skills[0].githubUrl}`
+    : skills[0].author.url
+      ? skills[0].author.url
+      : undefined
   return (
     <div className="space-y-6 sm:space-y-10 py-4 sm:py-6">
       <div className="space-y-1">
@@ -26,8 +31,14 @@ function RouteComponent() {
         <p className="text-muted-foreground mb-3">
           Browse skills made by {author}.
         </p>
-        {skills && skills.length > 0 && (
-          <LinkChip link={skills[0].githubUrl} label="GitHub" />
+        {skills && skills.length > 0 && link && (
+          <LinkChip
+            link={link}
+            label={skills[0].githubUrl ? 'GitHub' : 'Website'}
+            iconSrc={
+              skills[0].githubUrl ? 'https://github.com/favicon.ico' : undefined
+            }
+          />
         )}
       </div>
 

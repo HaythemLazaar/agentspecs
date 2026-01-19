@@ -12,10 +12,18 @@ export const Route = createFileRoute('/_docs/$category/$slug')({
     if (!skill) {
       throw notFound()
     }
-    console.log(params.slug)
+
+    // fetch latest content from source
+    // const latestContent = await fetch(skill.rawMarkdownUrl).then((res) =>
+    //   res.text(),
+    // )
+    // if (latestContent) {
+    //   skill.content = latestContent
+    // }
 
     return {
       skill,
+      content: skill.content,
     }
   },
   head: ({ loaderData }) => {
@@ -83,14 +91,15 @@ export const Route = createFileRoute('/_docs/$category/$slug')({
 })
 
 function SkillPage() {
-  const { skill } = Route.useLoaderData() as {
+  const { skill, content } = Route.useLoaderData() as {
     skill: Skill
+    content: string
   }
 
   return (
     <div className="py-4 sm:py-6 flex flex-col max-sm:gap-6 gap-10">
       <SkillDetails skill={skill} />
-      <SkillContent content={skill.content} />
+      <SkillContent content={content} />
       <SkillDocs skill={skill} />
     </div>
   )
