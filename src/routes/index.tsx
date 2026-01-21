@@ -72,7 +72,7 @@ function Home() {
             Browse skills made by industry experts. Search for a specific skill,
             then install or copy the exact spec you need.
           </p>
-          <div className="w-full max-w-2xl">
+          <div className="w-full max-w-lg">
             <InputGroup>
               <InputGroupAddon>
                 <InputGroupText>

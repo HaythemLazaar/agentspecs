@@ -1,7 +1,8 @@
 import { SkillGrid } from '@/components/skill-grid'
 import { SkillInstall } from '@/components/skill-install'
 import { LinkChip } from '@/components/ui/link-chip'
-import { getSkillsByAuthor } from '@/data'
+import { getSkillsByAuthor, Skill } from '@/data'
+import { getGithubRepoHandle } from '@/lib/utils'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_docs/$author/skills')({
@@ -16,12 +17,12 @@ export const Route = createFileRoute('/_docs/$author/skills')({
 })
 
 function RouteComponent() {
-  const { author, skills } = Route.useLoaderData()
-  const link = skills[0].githubUrl
-    ? `https://github.com/${skills[0].githubUrl}`
-    : skills[0].author.url
-      ? skills[0].author.url
-      : undefined
+  const { author, skills } = Route.useLoaderData() as {
+    author: string
+    skills: Skill[]
+  }
+  const githubHandle = getGithubRepoHandle(skills[0].githubUrl)
+  const link = githubHandle ? `https://github.com/${githubHandle}` : skills[0].author.url ?? ''
   return (
     <div className="space-y-6 sm:space-y-10 py-4 sm:py-6">
       <div className="space-y-1">

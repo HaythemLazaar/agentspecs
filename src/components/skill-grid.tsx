@@ -25,10 +25,10 @@ export function SkillGrid({
 
   const filteredSkills = normalizedQuery
     ? skills.filter((skill: Skill) =>
-        [skill.name, skill.content, skill.category].some((value) =>
-          value.toLowerCase().includes(normalizedQuery),
-        ),
-      )
+      [skill.name, skill.content, skill.category].some((value) =>
+        value.toLowerCase().includes(normalizedQuery),
+      ),
+    )
     : skills
   return (
     <>
@@ -52,13 +52,13 @@ export function SkillGrid({
 
       <div
         className={cn(
-          'grid grid-cols-1 md:grid-cols-2 gap-x-2 ring border ring-offset-3 ring-offset-background ring-border overflow-hidden rounded-2xl relative',
+          'grid grid-cols-1 md:grid-cols-2 gap-x-0 ring border ring-offset-3 ring-offset-background ring-border overflow-hidden rounded-2xl relative',
           className,
         )}
       >
         <div className="absolute inset-0 size-full bg-pattern z-0 blur-[0.5px] opacity-30" />
-        {filteredSkills.map((skill: Skill) => (
-          <SkillCard key={skill.slug} skill={skill} />
+        {filteredSkills.map((skill: Skill, index: number) => (
+          <SkillCard key={skill.slug} skill={skill} style={{ zIndex: 100 - index }} />
         ))}
         {filteredSkills.length === 0 && (
           <div className="p-6 text-sm text-foreground/70 text-center col-span-full z-1">
