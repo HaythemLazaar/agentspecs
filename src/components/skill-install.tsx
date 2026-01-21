@@ -47,17 +47,17 @@ export function SkillInstall({
 
   const command = {
     pnpm: installAll
-      ? `pnpm dlx add-skill ${githubHandle}`
-      : `pnpm dlx add-skill ${githubHandle} --skill ${skill.name}`,
+      ? `pnpm dlx skills add ${githubHandle}`
+      : `pnpm dlx skills add ${githubHandle} --skill ${skill.name}`,
     npm: installAll
-      ? `npx add-skill ${githubHandle}`
-      : `npx add-skill ${githubHandle} --skill ${skill.name}`,
+      ? `npx skills add ${githubHandle}`
+      : `npx skills add ${githubHandle} --skill ${skill.name}`,
     yarn: installAll
-      ? `yarn dlx add-skill ${githubHandle}`
-      : `yarn dlx add-skill ${githubHandle} --skill ${skill.name}`,
+      ? `yarn dlx skills add ${githubHandle}`
+      : `yarn dlx skills add ${githubHandle} --skill ${skill.name}`,
     bun: installAll
-      ? `bunx add-skill ${githubHandle}`
-      : `bunx add-skill ${githubHandle} --skill ${skill.name}`,
+      ? `bunx skills add ${githubHandle}`
+      : `bunx skills add ${githubHandle} --skill ${skill.name}`,
   }
 
   return (
