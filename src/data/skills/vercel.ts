@@ -8,7 +8,7 @@ const VERCEL_AUTHOR = {
 
 export const vercelSkills: Skill[] = [
   {
-    name: 'react-best-practices',
+    name: 'vercel-react-best-practices',
     slug: 'vercel-react-best-practices',
     category: 'agent-skills',
     author: VERCEL_AUTHOR,
